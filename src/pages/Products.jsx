@@ -12,6 +12,7 @@ import 'ldrs/react/TailChase.css'
 import { useContext } from "react"
 // Import BudgetContext
 import BudgetContext from "../contexts/BudgetContext" 
+import NavBar from "../components/NavBar"
 
 
 
@@ -37,6 +38,22 @@ export default function Products() {
     {/* useEffect for create in the page one time the list */}
     useEffect(fetchTodos, [])
 
+    {/* State for useContext */}
+    const {budgetMode} = useContext(BudgetContext)
+    console.log(budgetMode)
+
+    {/* State for filtered list */}
+    const [filteredList, setFilteredList] = useState([])
+
+    {/* useEffect for filtered list */}
+    useEffect(() => {
+        const newList = budgetMode ? 
+        todos.filter((thisTodo) => thisTodo.price < 30)
+        : todos
+
+      setFilteredList(newList)
+    }, [budgetMode])
+
     return (
         <>
         <main>
@@ -53,7 +70,7 @@ export default function Products() {
                     ) : (
                         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-4">
                             {
-                                todos.map((thisTodo) => (
+                                filteredList.map((thisTodo) => (
                                     <div key={thisTodo.id} className="col">
                                         <div className="card h-100 p-0">
                                             <div className="card-top p-3">
