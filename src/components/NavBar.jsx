@@ -8,10 +8,10 @@ import BudgetContext from "../contexts/BudgetContext"
 
 export default function NavBar() {
     const {budgetMode, setBudgetMode} = useContext(BudgetContext)
+    console.log(budgetMode)
 
     function handleClick() {
         budgetMode ? setBudgetMode(false) : setBudgetMode(true)
-        console.log(budgetMode)
     }
 
     return (
@@ -21,7 +21,7 @@ export default function NavBar() {
                 <NavLink className="text-decoration-none text-secondary me-3 fw-bold" to="/ChiSiamo">Chi Siamo</NavLink>
                 <NavLink className="text-decoration-none text-secondary fw-bold" to="/Products">Prodotti</NavLink>
                 <button className=" mx-2 btn btn-primary" onClick={handleClick}>
-                    Budget Mode
+                    {budgetMode ? 'Disable Budget Mode' : 'Active Budget Mode'}
                 </button>
             </nav>
         </>
