@@ -16,15 +16,17 @@ import BudgetContext from "../contexts/BudgetContext"
 export default function Products() {
 
     {/* State della chiamata API */}
-    const [todos, setTodos] = useState([])
-
+    const [allTodos, setAllTodos] = useState([])
+    
     {/* State download cards */}
     const [loading, setLoading] = useState(true)
 
     {/* Call API */}
     function fetchTodos() {
         axios.get('https://fakestoreapi.com/products')
-        .then((res) => setTodos(res.data))
+        .then((res) => {setAllTodos(res.data)
+            setTodos(res.data)
+        })
         .catch((err) => console.error('Errore:', err))
         .finally(() => setLoading(false))
     }
@@ -34,18 +36,18 @@ export default function Products() {
 
     {/* useContext */}
     const {budgetMode} = useContext(BudgetContext)
-    console.log(budgetMode)
-
-    {/* State for filtered list */}
-    const [filteredList, setFilteredList] = useState([])
+    
+    {/* State for not filtered list */}
+    const [todos, setTodos] = useState([])
 
     {/* useEffect for filtered list */}
     useEffect(() => {
-        const newList = budgetMode ? 
-        todos.filter((thisTodo) => thisTodo.price < 30)
-        : todos
+        const newList = budgetMode && 
+        allTodos.filter((thisTodo) => thisTodo.price < 30)
 
-      setFilteredList(newList)
+        budgetMode ?
+        setAllTodos(newList)
+        : setAllTodos(todos)
     }, [budgetMode])
 
     return (
@@ -64,7 +66,7 @@ export default function Products() {
                     ) : (
                         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-4">
                             {
-                                filteredList.map((thisTodo) => (
+                                allTodos.map((thisTodo) => (
                                     <div key={thisTodo.id} className="col">
                                         <div className="card h-100 p-0">
                                             <div className="card-top p-3">
