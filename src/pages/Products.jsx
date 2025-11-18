@@ -1,10 +1,18 @@
+// UseState and useEffect
 import { useState, useEffect } from "react"
+// Axios
 import axios from "axios"
+// Link
 import { Link } from "react-router-dom"
+// ldrs
 import { TailChase } from 'ldrs/react'
 import 'ldrs/react/TailChase.css'
 
-// Default values shown
+// Import useContext
+import { useContext } from "react"
+// Import BudgetContext
+import BudgetContext from "../contexts/BudgetContext" 
+
 
 
 
