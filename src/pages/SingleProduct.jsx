@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import cards from "../assets/img/cards"
 
@@ -11,6 +10,7 @@ export default function SingleProduct() {
     {/* Params for id */}
     const { id } = useParams()
 
+    {/* Find the product with id */}
     const card = cards.find((thisCard) => thisCard.id === Number(id))
 
     return (
