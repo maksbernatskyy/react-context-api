@@ -1,37 +1,36 @@
 // UseState and useEffect
 import { useState, useEffect } from "react"
+// Axios
+import axios from "axios"
 // Link
 import { Link } from "react-router-dom"
 // ldrs
 import { TailChase } from 'ldrs/react'
 import 'ldrs/react/TailChase.css'
-// Cards
-import cards from "../assets/img/cards"
-
 // Import useContext
 import { useContext } from "react"
 // Import BudgetContext
 import BudgetContext from "../contexts/BudgetContext" 
-import NavBar from "../components/NavBar"
-
-
 
 
 export default function Products() {
 
-    {/* Array of cards */}
-    <cards />
-
     {/* State della chiamata API */}
-    const [todos, setTodos] = useState(cards)
+    const [todos, setTodos] = useState([])
 
     {/* State download cards */}
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
+
+    {/* Call API */}
+    function fetchTodos() {
+        axios.get('https://fakestoreapi.com/products')
+        .then((res) => setTodos(res.data))
+        .catch((err) => console.error('Errore:', err))
+        .finally(() => setLoading(false))
+    }
 
     {/* useEffect for create in the page one time the list */}
-    useEffect(() => {
-        setTodos(todos)
-    }, [])
+    useEffect(fetchTodos, [])
 
     {/* useContext */}
     const {budgetMode} = useContext(BudgetContext)
