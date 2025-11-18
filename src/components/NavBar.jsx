@@ -10,6 +10,7 @@ export default function NavBar() {
     const {budgetMode, setBudgetMode} = useContext(BudgetContext)
     console.log(budgetMode)
 
+    {/* budgetMode is true? yes so be false, no so be true */}
     function handleClick() {
         budgetMode ? setBudgetMode(false) : setBudgetMode(true)
     }
