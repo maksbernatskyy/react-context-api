@@ -1,23 +1,17 @@
-import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import cards from "../assets/img/cards"
 
 export default function SingleProduct() {
 
-    {/* State for single card */}
-    const [card, setCard] = useState({})
+    <cards />
+
+     
 
     {/* Params for id */}
     const { id } = useParams()
 
-    {/* Function for call the API */}
-    function fetchCard() {
-        axios.get(`https://fakestoreapi.com/products/${id}`)
-        .then((res) => {setCard(res.data)})
-        .catch((err) => {console.error('Errore:', err)})
-    }
-
-    useEffect(fetchCard, [] )
+    const card = cards.find((thisCard) => thisCard.id === Number(id))
 
     return (
         <>
